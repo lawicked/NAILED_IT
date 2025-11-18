@@ -1,0 +1,80 @@
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-2">Interview Practice</h1>
+    <p class="text-base-content/70">Choose from our collection of technical and behavioral interviews</p>
+  </div>
+
+  <!-- Search & Filters Container -->
+  <div class="bg-base-200 rounded-2xl p-6 mb-8">
+    <!-- Search Input -->
+    <div class="form-control mb-4">
+      <input
+        type="text"
+        placeholder="Search interviews by role, technology, or topic........"
+        class="input input-bordered w-full"
+      />
+    </div>
+
+    <!-- Filters Row -->
+    <div class="flex flex-wrap gap-4 items-center">
+      <!-- Seniority Buttons -->
+      <div class="flex gap-2">
+        <button class="btn btn-sm">All</button>
+        <button class="btn btn-sm">Junior</button>
+        <button class="btn btn-sm btn-success">Senior</button>
+        <button class="btn btn-sm">Lead</button>
+      </div>
+
+      <!-- Category Label & Dropdown -->
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-medium">Category</span>
+        <select class="select select-bordered select-sm w-48">
+          <option>All Categories</option>
+          <option>Technical</option>
+          <option>Behavioral</option>
+        </select>
+      </div>
+
+      <!-- Technology Label & Dropdown -->
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-medium">Technology</span>
+        <select class="select select-bordered select-sm w-48">
+          <option>All Technologies</option>
+          <option>Ruby on Rails</option>
+          <option>React</option>
+          <option>JavaScript</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Bar -->
+  <div class="flex justify-between items-center mb-6">
+    <p class="text-sm text-base-content/70">Showing 12 interviews matching your criteria</p>
+    <select class="select select-bordered select-sm">
+      <option>Most Popular</option>
+      <option>Newest</option>
+      <option>Shortest</option>
+    </select>
+  </div>
+
+<!-- Cards -->
+<div  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<% @interviews.each do |interview| %>
+<div  class="card bg-base-100 w-96 shadow-sm">
+  <figure class="px-10 pt-10">
+    <img
+      src="app/assets/images/Ruby_On_Rails_Logo.svg"
+      alt="Rails"
+      class="rounded-xl" />
+  </figure>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title">Rails Backend Interview</h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <div class="card-actions">
+      <button class="btn btn-primary">Start Interview</button>
+    </div>
+  </div>
+  <% end %>
+</div>
