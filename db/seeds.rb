@@ -9,7 +9,6 @@ puts "👤 Creation of users..."
 users = []
 10.times do
   users << User.create!(
-    name: Faker::Name.name,
     email: Faker::Internet.email,
     password: "password123",
     role: ["Developer", "Designer", "Manager"].sample,
@@ -45,6 +44,7 @@ interviews = interviews_data.map { |interview_data| Interview.create!(interview_
 puts "#{interviews.count} interviews created"
 
 puts " creation of conversations..."
+
 conversations = []
 users.each_with_index do |user, index|
   conversations << Conversation.create!(
@@ -52,6 +52,7 @@ users.each_with_index do |user, index|
     interview: interviews.sample
   )
 end
+
 puts "#{conversations.count} conversations created"
 
 puts "Creation of messages..."
@@ -70,8 +71,6 @@ puts "rapport creation..."
 conversations.each do |conversation|
   Report.create!(
     conversation: conversation,
-    content: "Analysis report #{conversation.id}",
-    score: rand(60..100)
   )
 end
 puts "Reports created"
