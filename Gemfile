@@ -4,6 +4,8 @@ gem "ruby_llm", "~> 1.6.4"
 
 ruby "3.3.5"
 
+gem "faker"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.6"
 
