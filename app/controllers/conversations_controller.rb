@@ -13,4 +13,11 @@ class ConversationsController < ApplicationController
       render "interviews/show"
     end
   end
+
+  def show
+    @conversation = Conversation.find(params[:id])
+    @interview = @conversation.interview
+    @messages = @conversation.messages.order(created_at: :asc)
+    @message = Message.new
+  end
 end
