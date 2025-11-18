@@ -1,5 +1,5 @@
 class Interview < ApplicationRecord
-  has_many :conversations
+  has_many :conversations, dependent: :destroy
 
   validates :body, presence: true
   validates :target_role, presence: true
