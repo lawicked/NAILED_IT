@@ -8,73 +8,84 @@
   <!-- Search & Filters Container -->
   <div class="bg-base-200 rounded-2xl p-6 mb-8">
     <!-- Search Input -->
-    <div class="form-control mb-4">
-      <input
-        type="text"
-        placeholder="Search interviews by role, technology, or topic........"
-        class="input input-bordered w-full"
-      />
-    </div>
+    <%= form_with url: interviews_path, method: :get, class: "form-control mb-4" do |f| %>
+      <%= f.text_field :query,
+          placeholder: "Search interviews by role, technology, or topic........",
+          class: "input input-bordered w-full",
+          value: params[:query] %>
+    <% end %>
 
     <!-- Filters Row -->
     <div class="flex flex-wrap gap-4 items-center">
       <!-- Seniority Buttons -->
-      <div class="flex gap-2">
-        <button class="btn btn-sm">All</button>
-        <button class="btn btn-sm">Junior</button>
-        <button class="btn btn-sm btn-success">Senior</button>
-        <button class="btn btn-sm">Lead</button>
+     <div class="flex gap-2">
+        <% ['All', 'Junior', 'Senior', 'Lead'].each do |level| %>
+          <%= link_to level,
+              interviews_path(seniority: level == 'All' ? nil : level),
+              class: "btn btn-sm #{params[:seniority] == level || (level == 'All' && params[:seniority].blank?) ? 'btn-success' : ''}" %>
+        <% end %>
       </div>
-
       <!-- Category Label & Dropdown -->
       <div class="flex items-center gap-2">
         <span class="text-sm font-medium">Category</span>
-        <select class="select select-bordered select-sm w-48">
-          <option>All Categories</option>
-          <option>Technical</option>
-          <option>Behavioral</option>
-        </select>
+        <%= select_tag :category,
+            options_for_select(['All Categories', 'Technical', 'Behavioral'], params[:category]),
+            class: "select select-bordered select-sm w-48",
+            onchange: "this.form.submit()" %>
       </div>
 
       <!-- Technology Label & Dropdown -->
       <div class="flex items-center gap-2">
         <span class="text-sm font-medium">Technology</span>
-        <select class="select select-bordered select-sm w-48">
-          <option>All Technologies</option>
-          <option>Ruby on Rails</option>
-          <option>React</option>
-          <option>JavaScript</option>
-        </select>
+        <%= select_tag :technology,
+            options_for_select(
+              ['All Technologies', 'Ruby on Rails', 'React', 'JavaScript', 'Python', 'Java'],
+              params[:technology]
+            ),
+            class: "select select-bordered select-sm w-48",
+            onchange: "this.form.submit()" %>
       </div>
     </div>
   </div>
 
   <!-- Results Bar -->
   <div class="flex justify-between items-center mb-6">
-    <p class="text-sm text-base-content/70">Showing 12 interviews matching your criteria</p>
-    <select class="select select-bordered select-sm">
-      <option>Most Popular</option>
-      <option>Newest</option>
-      <option>Shortest</option>
-    </select>
+    <p class="text-sm text-base-content/70">
+      Showing <%= @interviews.count %> interviews matching your criteria
+    </p>
+    <%= select_tag :sort,
+        options_for_select(['Most Popular', 'Newest', 'Shortest'], params[:sort]),
+        class: "select select-bordered select-sm",
+        onchange: "window.location.search = 'sort=' + this.value" %>
   </div>
 
 <!-- Cards -->
-<div  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-<% @interviews.each do |interview| %>
-<div  class="card bg-base-100 w-96 shadow-sm">
-  <figure class="px-10 pt-10">
-    <img
-      src="app/assets/images/Ruby_On_Rails_Logo.svg"
-      alt="Rails"
-      class="rounded-xl" />
-  </figure>
-  <div class="card-body items-center text-center">
-    <h2 class="card-title">Rails Backend Interview</h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-    <div class="card-actions">
-      <button class="btn btn-primary">Start Interview</button>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% @interviews.each do |interview| %>
+    <div class="card bg-base-100 shadow-xl">
+      <figure class="px-10 pt-10">
+        <%= image_tag "Ruby_On_Rails_Logo.svg", alt: "Rails", class: "rounded-xl w-20 h-20" %>
+      </figure>
+      <div class="card-body items-center text-center">
+        <h2 class="card-title"><%= interview.target_role %></h2>
+
+        <div class="text-sm space-y-1">
+          <p><strong>Level:</strong> <%= interview.seniority %></p>
+          <p><strong>Duration:</strong> 45 minutes</p>
+          <p><strong>Tech:</strong> <%= interview.language %></p>
+        </div>
+
+        <div class="card-actions">
+          <%= link_to "Start Interview", interview_path(interview), class: "btn btn-primary" %>
+        </div>
+      </div>
     </div>
-  </div>
   <% end %>
+</div>
+
+<!-- Pagination Dots -->
+<div class="flex justify-center gap-2 mt-8">
+  <div class="w-3 h-3 rounded-full bg-success"></div>
+  <div class="w-3 h-3 rounded-full bg-base-300"></div>
+  <div class="w-3 h-3 rounded-full bg-base-300"></div>
 </div>
