@@ -8,13 +8,13 @@ class ConversationsController < ApplicationController
     @interview = Interview.find(params[:interview_id])
 
     @conversation = Conversation.new(title: "Untitled")
-    @conversation.challenge = @conversation
+    @conversation.interview = @interview
     @conversation.user = current_user
 
     if @conversation.save
       redirect_to conversation_path(@conversation)
     else
-      render "interviews/show"
+      render "interviews/index"
     end
   end
 end
