@@ -36,7 +36,10 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <%# <a href="" class="btn">Login</a> %>
-    <%= link_to "Login", user_session_path%>
+    <% if user_signed_in? %>
+      <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn" %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path, class: "btn" %>
+    <% end %>
   </div>
 </div>

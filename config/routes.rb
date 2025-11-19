@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, sign_out_via: [:get, :delete]
   root to: "pages#home"
 
   resources :interviews, only: [:index, :show] do
