@@ -29,4 +29,9 @@ class InterviewsController < ApplicationController
       @interviews = @interviews.order(id: :desc)
     end
   end
+
+  #  def show
+  #   @interview = Interview.find(params[:id])
+  # end
+
 end

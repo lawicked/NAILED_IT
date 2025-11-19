@@ -1,0 +1,191 @@
+<div class="min-h-screen bg-base-100" data-controller="conversation">
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+
+    <!-- HEADER CLEAN -->
+    <div class="w-full bg-white border border-base-300 rounded-xl px-6 py-5 mb-8">
+      <div class="flex justify-between items-center">
+
+        <div>
+          <h1 class="text-2xl font-semibold">Interview Practice</h1>
+          <p class="text-sm text-base-content/60">Professional Mock Interview Session</p>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2 mt-3">
+
+            <!-- Tag 1: Role -->
+            <span class="inline-flex items-center gap-2 text-xs px-3 py-1.5
+                         rounded-lg border border-base-300 bg-base-200/50">
+              <span class="h-2 w-2 rounded-full bg-primary"></span>
+              <%= @conversation.interview.target_role %>
+            </span>
+
+            <!-- Tag 2: Seniority -->
+            <span class="inline-flex items-center gap-2 text-xs px-3 py-1.5
+                         rounded-lg border border-base-300 bg-base-200/50">
+              <span class="h-2 w-2 rounded-full bg-secondary"></span>
+              <%= @conversation.interview.seniority %> level
+            </span>
+
+            <!-- Tag 3: Language -->
+            <span class="inline-flex items-center gap-2 text-xs px-3 py-1.5
+                         rounded-lg border border-base-300 bg-base-200/50">
+              <span class="h-2 w-2 rounded-full bg-accent"></span>
+              <%= @conversation.interview.language %>
+            </span>
+
+            <!-- Tag 4: Messages count -->
+            <span class="inline-flex items-center gap-2 text-xs px-3 py-1.5
+                         rounded-lg border border-primary/20 bg-primary/10 text-primary">
+              <span class="h-2 w-2 rounded-full bg-primary"></span>
+              <%= @conversation.messages.count %> messages
+            </span>
+
+          </div>
+        </div>
+
+        <%= link_to interviews_path,
+          class: "btn btn-sm btn-ghost border border-base-300 rounded-lg" do %>
+          ← Back to Interviews
+        <% end %>
+
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+      <!-- SIDEBAR CLEAN -->
+      <div class="hidden lg:block lg:col-span-1">
+        <div class="bg-white border border-base-300 rounded-xl px-4 py-5 text-left">
+
+          <h3 class="font-medium text-sm mb-4">Interview Tips</h3>
+
+          <ul class="space-y-2 text-sm">
+            <li class="relative">
+              <span class="absolute -left-4 top-0 text-success">✓</span>
+              <span>Take your time before answering</span>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-4 top-0 text-success">✓</span>
+              <span>Ask clarifying questions</span>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-4 top-0 text-success">✓</span>
+              <span>Explain your thought process</span>
+            </li>
+
+            <li class="relative">
+              <span class="absolute -left-4 top-0 text-success">✓</span>
+              <span>Use concrete examples</span>
+            </li>
+          </ul>
+
+          <div class="border-t border-base-300 my-4"></div>
+
+          <div class="text-xs">
+            <div class="font-medium text-base-content/80">Progress</div>
+            <div class="text-2xl font-semibold text-primary mt-1">
+              <%= @conversation.messages.count %>
+            </div>
+            <div class="text-base-content/60">Total exchanges</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAT AREA -->
+      <div class="lg:col-span-3">
+
+        <!-- CHAT CARD -->
+        <div class="bg-white border border-base-300 rounded-xl mb-6">
+          <div class="px-6 py-4 border-b border-base-300">
+            <h2 class="text-lg font-semibold">Conversation</h2>
+            <p class="text-xs text-base-content/60">AI-powered interview simulation</p>
+          </div>
+
+          <!-- MESSAGES LIST -->
+          <div class="px-6 py-6 max-h-[600px] overflow-y-auto space-y-4"
+               data-conversation-target="messages">
+
+            <% @conversation.messages.each do |message| %>
+              <% is_user = message.role == "user" %>
+
+              <div class="flex gap-3 <%= is_user ? 'justify-end' : 'justify-start' %>">
+
+                <!-- Avatar -->
+                <% unless is_user %>
+                  <div class="w-8 h-8 rounded-full bg-base-300 flex items-center justify-center text-xs">
+                    🤖
+                  </div>
+                <% end %>
+
+                <!-- Bubble -->
+                <div class="max-w-md">
+                  <div class="text-xs text-base-content/50 mb-0.5">
+                    <%= is_user ? "You" : "AI" %> · <%= message.created_at.strftime("%H:%M") %>
+                  </div>
+
+                  <div class="px-4 py-2 bg-base-200 text-sm rounded-xl">
+                    <%= simple_format(message.content) %>
+                  </div>
+                </div>
+
+                <% if is_user %>
+                  <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs">
+                    👤
+                  </div>
+                <% end %>
+
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- INPUT CARD -->
+        <div class="bg-white border border-base-300 rounded-xl p-5 sticky bottom-4">
+
+          <%= form_with url: conversation_messages_path(@conversation),
+                        method: :post,
+                        class: "space-y-4",
+                        data: { conversation_target: "form" } do |form| %>
+
+            <div class="flex flex-col">
+
+              <label class="text-sm font-medium mb-1">Your Response</label>
+
+              <%= form.text_area :content,
+                placeholder: "Type your thoughtful response here...",
+                class: "w-full border border-base-300 rounded-lg p-3 text-sm
+                        focus:outline-none focus:border-primary resize-none bg-base-50",
+                rows: 3,
+                data: {
+                  conversation_target: "textarea",
+                  action: "keydown->conversation#handleKeydown input->conversation#autoResize"
+                } %>
+            </div>
+
+            <div class="flex justify-between items-center">
+
+              <div class="text-xs text-base-content/60 flex items-center gap-1">
+                Quick actions:
+                <kbd class="kbd kbd-xs">Enter</kbd> to send ·
+                <kbd class="kbd kbd-xs">Shift</kbd> +
+                <kbd class="kbd kbd-xs">Enter</kbd> new line
+              </div>
+
+              <%= form.submit "Send Message",
+                class: "btn btn-primary btn-sm px-4 rounded-lg",
+                data: { conversation_target: "submit" } %>
+
+            </div>
+
+          <% end %>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

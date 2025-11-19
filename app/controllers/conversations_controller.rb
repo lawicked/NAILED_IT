@@ -1,5 +1,9 @@
 class ConversationsController < ApplicationController
   # app/controllers/chats_controller.rb
+  def show
+    @conversation = Conversation.find(params[:id])
+  end
+
   def create
     @interview = Interview.find(params[:interview_id])
 
