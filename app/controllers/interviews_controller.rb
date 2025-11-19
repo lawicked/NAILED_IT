@@ -30,8 +30,7 @@ class InterviewsController < ApplicationController
     end
   end
 
-  #  def show
-  #   @interview = Interview.find(params[:id])
-  # end
-
+   def show
+    @interview = Interview.find(params[:id])
+  end
 end
