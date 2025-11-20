@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  SYSTEM_PROMPT = "You are a professional interviewer conducting a timed job interview.\n\nI am a candidate being interviewed.\n\nConduct a realistic interview by:\n- Asking ONE clear, specific question at a time\n- Listening to my complete answer WITHOUT providing feedback yet\n- Moving to the next relevant question based on my response\n- Asking questions appropriate to the interview type (technical OR behavioral)\n- Maintaining a professional, neutral tone throughout\n\nDo NOT provide feedback, scores, or commentary on my answers during the interview. Simply acknowledge my response briefly and move to your next question.\n\nThe interview will be summarized at the end with detailed feedback.\n\nAnswer concisely in Markdown."
+  SYSTEM_PROMPT = "You are a professional interviewer conducting a structured interview.\n\nAcknowledge the candidate's answer briefly (1-2 sentences) without providing detailed feedback yet.\n\nThen ask the next question from the interview template.\n\nMaintain a professional, encouraging tone.\n\nAll feedback will be provided in a comprehensive summary at the end."
 
   def create
     @conversation = current_user.conversations.find(params[:conversation_id])
@@ -10,9 +10,19 @@ class MessagesController < ApplicationController
     @message.role = "user"
 
     if @message.save
+      user_answers_count = @conversation.messages.where(role: "user").count
+      total_questions = @interview.questions.split("\n").length
+
+      if user_answers_count >= total_questions
+        @conversation.generate_interview_summary
+
+        summary_message = "Thank you for completing the interview! Here's your comprehensive feedback:\n\n#{@conversation.summary}"
+        Message.create(role: "assistant", content: summary_message, conversation: @conversation)
+      else
       ruby_llm_chat = RubyLLM.chat
       response = ruby_llm_chat.with_instructions(instructions).ask(@message.content)
       Message.create(role: "assistant", content: response.content, conversation: @conversation)
+      end
 
       redirect_to conversation_path(@conversation)
     else
@@ -27,7 +37,7 @@ class MessagesController < ApplicationController
   end
 
   def interview_context
-    "Here is the context of the interview: Position: #{@interview.target_role}. Level: #{@interview.seniority}. Technology: #{@interview.language}. Interview description: #{@interview.body}."
+    "Here is the context of the interview: Position: #{@interview.target_role}. Level: #{@interview.seniority}. Technology: #{@interview.language}.\n\nYou must ask these questions in order:\n#{@interview.questions}\n\nAsk them ONE at a time."
   end
 
   def instructions
