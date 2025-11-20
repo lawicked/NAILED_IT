@@ -15,9 +15,17 @@ class MessagesController < ApplicationController
       response = @ruby_llm_chat.with_instructions(instructions).ask(@message.content)
 
       @conversation.messages.create(role: "assistant", content: response.content)
-      redirect_to conversation_path(@conversation)
+      # redirect_to conversation_path(@conversation)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to conversation_path(@conversation) }
+      end
     else
-      render "chats/show", status: :unprocessable_entity
+      # render "chats/show", status: :unprocessable_entity
+        respond_to do |format|
+          format.turbo_stream { render turbo_stream: turbo_stream.replace("new_message", partial: "conversations/form", locals: { conversation: @conversation, message: Message.new }) }
+          format.html { render "chats/show", status: :unprocessable_entity }
+        end
     end
   end
 
@@ -40,4 +48,5 @@ class MessagesController < ApplicationController
   def instructions
     [SYSTEM_PROMPT, interview_context, @interview.system_prompt].compact.join("\n\n")
   end
+
 end

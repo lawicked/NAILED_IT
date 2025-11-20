@@ -1,0 +1,31 @@
+<% messages.each do |message| %>
+  <% is_user = message.role == "user" %>
+
+  <div class="flex gap-3 <%= is_user ? 'justify-end' : 'justify-start' %>">
+
+    <!-- Avatar -->
+    <% unless is_user %>
+      <div class="w-8 h-8 rounded-full bg-base-300 flex items-center justify-center text-xs">
+        🤖
+      </div>
+    <% end %>
+
+    <!-- Bubble -->
+    <div class="max-w-md">
+      <div class="text-xs text-base-content/50 mb-0.5">
+        <%= is_user ? "You" : "AI" %> · <%= message.created_at.strftime("%H:%M") %>
+      </div>
+
+      <div class="px-4 py-2 bg-base-200 text-sm rounded-xl">
+        <%= simple_format(message.content) %>
+      </div>
+    </div>
+
+    <% if is_user %>
+      <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs">
+        👤
+      </div>
+    <% end %>
+
+  </div>
+<% end %>
