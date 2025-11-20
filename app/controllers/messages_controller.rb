@@ -10,13 +10,20 @@ class MessagesController < ApplicationController
     @message.role = "user"
 
     if @message.save
-      ruby_llm_chat = RubyLLM.chat
-      response = ruby_llm_chat.with_instructions(instructions).ask(@message.content)
-      Message.create(role: "assistant", content: response.content, conversation: @conversation)
+      @ruby_llm_chat = RubyLLM.chat
+      build_conversation_history
+      response = @ruby_llm_chat.with_instructions(instructions).ask(@message.content)
 
+      @conversation.messages.create(role: "assistant", content: response.content)
       redirect_to conversation_path(@conversation)
     else
       render "chats/show", status: :unprocessable_entity
+    end
+  end
+
+  def build_conversation_history
+    @conversation.messages.each do |message|
+      @ruby_llm_chat.add_message(role: message.role, content: message.content)
     end
   end
 
