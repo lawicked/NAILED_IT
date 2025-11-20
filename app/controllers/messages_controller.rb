@@ -24,9 +24,16 @@ class MessagesController < ApplicationController
       Message.create(role: "assistant", content: response.content, conversation: @conversation)
       end
 
+      @conversation.messages.create(role: "assistant", content: response.content)
       redirect_to conversation_path(@conversation)
     else
       render "chats/show", status: :unprocessable_entity
+    end
+  end
+
+  def build_conversation_history
+    @conversation.messages.each do |message|
+      @ruby_llm_chat.add_message(role: message.role, content: message.content)
     end
   end
 
