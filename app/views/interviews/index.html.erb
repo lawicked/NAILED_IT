@@ -5,6 +5,73 @@
     <p class="text-base-content/70">Choose from our collection of technical and behavioral interviews</p>
   </div>
 
+  <!-- Drag and Drop CV Card -->
+  <div class="mb-8" data-controller="drag-and-drop">
+    <div class="p-6 border-2 border-dashed border-base-content/20 rounded-2xl text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all duration-200"
+         data-drag-and-drop-target="dropzone"
+         data-action="
+           dragover->drag-and-drop#highlight
+           dragleave->drag-and-drop#unhighlight
+           drop->drag-and-drop#handleDrop
+           click->drag-and-drop#triggerFileInput
+         ">
+      <input type="file" data-drag-and-drop-target="fileInput" class="hidden" data-action="change->drag-and-drop#handleFileChange" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+
+      <!-- Default state - No file selected -->
+      <div data-drag-and-drop-target="emptyState" class="flex flex-col items-center justify-center pointer-events-none">
+        <!-- Beautiful upload icon with gradient -->
+        <div class="relative mb-3">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-xl"></div>
+          <div class="relative bg-base-100 rounded-2xl p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-lg font-bold mb-1">Upload Your CV</h3>
+        <p class="text-sm text-base-content/70 mb-0.5">
+          <span class="font-semibold">Drag & drop your CV here</span> or <span class="text-primary hover:underline font-semibold">click to browse</span>
+        </p>
+        <p class="text-xs text-base-content/50">Supports PDF, DOC, DOCX (max 10MB)</p>
+      </div>
+
+      <!-- File selected state -->
+      <div data-drag-and-drop-target="fileState" class="hidden">
+        <div class="flex items-center justify-center gap-3 pointer-events-none">
+          <div class="flex items-center gap-3 bg-success/10 rounded-xl px-6 py-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <div class="text-left">
+              <p class="text-sm text-base-content/50 font-medium">Selected file:</p>
+              <p class="text-lg font-bold" data-drag-and-drop-target="fileName"></p>
+            </div>
+            <button type="button"
+                    data-action="click->drag-and-drop#removeFile"
+                    class="btn btn-circle btn-ghost btn-sm pointer-events-auto ml-4 hover:bg-error/20 hover:text-error"
+                    title="Remove file">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save button (only shown when file is selected) -->
+    <div data-drag-and-drop-target="saveButton" class="hidden mt-4 text-center">
+      <button type="button"
+              data-action="click->drag-and-drop#saveFile"
+              class="btn btn-primary btn-lg gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Save CV
+      </button>
+    </div>
+  </div>
+
   <!-- Search & Filters Container -->
   <div class="bg-base-200 rounded-2xl p-6 mb-8">
     <!-- Search Input -->
