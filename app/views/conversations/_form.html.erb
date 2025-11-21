@@ -1,0 +1,36 @@
+<%= form_with url: conversation_messages_path(@conversation),
+              method: :post,
+              class: "space-y-4",
+              data: { conversation_target: "form" } do |form| %>
+
+  <div class="flex flex-col">
+
+    <label class="text-sm font-medium mb-1">Your Response</label>
+
+    <%= form.text_area :content,
+      placeholder: "Type your thoughtful response here...",
+      class: "w-full border border-base-300 rounded-lg p-3 text-sm
+              focus:outline-none focus:border-primary resize-none bg-base-50",
+      rows: 3,
+      data: {
+        conversation_target: "textarea",
+        action: "keydown->conversation#handleKeydown input->conversation#autoResize"
+      } %>
+  </div>
+
+  <div class="flex justify-between items-center">
+
+    <div class="text-xs text-base-content/60 flex items-center gap-1">
+      Quick actions:
+      <kbd class="kbd kbd-xs">Enter</kbd> to send ·
+      <kbd class="kbd kbd-xs">Shift</kbd> +
+      <kbd class="kbd kbd-xs">Enter</kbd> new line
+    </div>
+
+    <%= form.submit "Send Message",
+      class: "btn btn-primary btn-sm px-4 rounded-lg",
+      data: { conversation_target: "submit" } %>
+
+  </div>
+
+<% end %>

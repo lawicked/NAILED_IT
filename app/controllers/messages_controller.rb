@@ -29,7 +29,11 @@ class MessagesController < ApplicationController
       # @conversation.messages.create(role: "assistant", content: response.content)
       redirect_to conversation_path(@conversation)
     else
-      render "chats/show", status: :unprocessable_entity
+      # render "chats/show", status: :unprocessable_entity
+        respond_to do |format|
+          format.turbo_stream { render turbo_stream: turbo_stream.replace("new_message", partial: "conversations/form", locals: { conversation: @conversation, message: Message.new }) }
+          format.html { render "chats/show", status: :unprocessable_entity }
+        end
     end
   end
 
@@ -52,4 +56,5 @@ class MessagesController < ApplicationController
   def instructions
     [SYSTEM_PROMPT, interview_context, @interview.system_prompt].compact.join("\n\n")
   end
+
 end
