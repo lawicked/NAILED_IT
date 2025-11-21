@@ -1,11 +1,12 @@
 class Conversation < ApplicationRecord
   belongs_to :user
   belongs_to :interview
-
   has_many :messages, dependent: :destroy
   has_many :reports, dependent: :destroy
 
-  SUMMARY_PROMPT = <<-PROMPT
+  after_initialize :set_defaults, if: :new_record?
+
+  SUMMARY_PROMPT = <<~PROMPT
     You are a professional interviewer providing comprehensive post-interview feedback.
 
     Review the entire interview conversation and provide detailed evaluation in this EXACT format:
@@ -42,16 +43,36 @@ class Conversation < ApplicationRecord
     Be specific, honest, and constructive. Focus on what they did well AND what they can improve.
   PROMPT
 
+  def set_defaults
+    self.current_question_index ||= 0
+  end
+
+  def current_question
+    questions_array = interview.questions.split("\n")
+    return nil if current_question_index >= questions_array.length
+    questions_array[current_question_index]
+  end
+
+  def total_questions
+    interview.questions.split("\n").length
+  end
+
+  def completed?
+    current_question_index >= total_questions
+  end
+
+  def advance_question!
+    increment!(:current_question_index)
+  end
+
   def generate_interview_summary
     return if messages.empty?
-
 
     conversation_history = messages.order(:created_at).map do |msg|
       "#{msg.role.upcase}: #{msg.content}"
     end.join("\n\n")
 
-
-    interview_context = <<-CONTEXT
+    interview_context = <<~CONTEXT
       Interview Details:
       - Position: #{interview.target_role}
       - Level: #{interview.seniority}
@@ -62,9 +83,7 @@ class Conversation < ApplicationRecord
       #{interview.questions}
     CONTEXT
 
-
     full_prompt = "#{SUMMARY_PROMPT}\n\n#{interview_context}\n\nInterview Transcript:\n\n#{conversation_history}"
-
 
     response = RubyLLM.chat.ask(full_prompt)
     update(summary: response.content)

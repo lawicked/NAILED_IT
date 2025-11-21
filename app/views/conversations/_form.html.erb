@@ -1,4 +1,5 @@
-<%= form_with url: conversation_messages_path(@conversation),
+<%= form_with model: [@conversation, @message],
+              url: conversation_messages_path(@conversation),
               method: :post,
               class: "space-y-4",
               data: { conversation_target: "form" } do |form| %>

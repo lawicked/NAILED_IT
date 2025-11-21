@@ -25,25 +25,31 @@ class ConversationsController < ApplicationController
 
   def generate_opening_message(conversation)
     interview = conversation.interview
+    question_count = interview.questions.split("\n").length
+    first_question = conversation.current_question
 
-    greeting_prompt = <<-PROMPT
-      You are starting a #{interview.category} interview for a #{interview.seniority} #{interview.target_role} position.
+  greeting = <<~GREETING
+    👋 **Welcome to your #{interview.target_role} interview!**
 
-      Greet the candidate warmly and professionally. Then explain:
-      1. This is a structured interview with #{interview.questions.split("\n").length} questions
-      2. They should answer each question thoughtfully
-      3. There's no time limit - take their time
+    Interview Details
+    - Position: #{interview.target_role}
+    - Level: #{interview.seniority}
+    - Category: #{interview.category}
+    - Technology: #{interview.language}
+    - Questions: #{question_count}
 
-      Then ask them if they're ready to begin.
+    **How it works**
 
-      Keep it friendly, encouraging, and concise (3-4 sentences max).
-    PROMPT
+    I'll ask you #{question_count} questions, one at a time. Take your time to answer each question thoughtfully. After answering all questions, you'll automatically receive comprehensive feedback.
 
-    response = RubyLLM.chat.ask(greeting_prompt)
+    **Let's begin with your first question:**
+
+    #{first_question}
+  GREETING
 
     conversation.messages.create!(
       role: "assistant",
-      content: response.content
+      content: greeting
     )
   end
 end
