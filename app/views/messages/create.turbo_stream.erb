@@ -1,0 +1,7 @@
+<%= turbo_stream.append "messages" do %>
+  <%= render "conversations/messages", messages: @conversation.messages.order(:created_at).last(2) %>
+<% end %>
+
+<%= turbo_stream.update "new_message_container" do %>
+  <%= render "conversations/form", conversation: @Conversation, message: Message.new %>
+<% end %>
