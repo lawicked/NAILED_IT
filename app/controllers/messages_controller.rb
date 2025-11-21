@@ -4,7 +4,9 @@ class MessagesController < ApplicationController
   def create
     @conversation = current_user.conversations.find(params[:conversation_id])
     @interview = @conversation.interview
-
+    params.delete(:authenticity_token)
+    params.delete(:commit)
+    params.delete(:conversation_id)
     @message = Message.new(message_params)
     @message.conversation = @conversation
     @message.role = "user"
@@ -24,7 +26,7 @@ class MessagesController < ApplicationController
       Message.create(role: "assistant", content: response.content, conversation: @conversation)
       end
 
-      @conversation.messages.create(role: "assistant", content: response.content)
+      # @conversation.messages.create(role: "assistant", content: response.content)
       redirect_to conversation_path(@conversation)
     else
       render "chats/show", status: :unprocessable_entity
