@@ -11,23 +11,36 @@ class MessagesController < ApplicationController
     @message.conversation = @conversation
     @message.role = "user"
 
-    if @message.save
-      user_answers_count = @conversation.messages.where(role: "user").count
-      total_questions = @interview.questions.split("\n").length
+if @message.save
+  @conversation.advance_question!
 
-      if user_answers_count >= total_questions
-        @conversation.generate_interview_summary
+  if @conversation.completed?
+    @conversation.generate_interview_summary
 
-        summary_message = "Thank you for completing the interview! Here's your comprehensive feedback:\n\n#{@conversation.summary}"
-        Message.create(role: "assistant", content: summary_message, conversation: @conversation)
-      else
-      ruby_llm_chat = RubyLLM.chat
-      response = ruby_llm_chat.with_instructions(instructions).ask(@message.content)
-      Message.create(role: "assistant", content: response.content, conversation: @conversation)
+    summary_message = "🎉 Thank you for completing the interview! You've answered all #{@conversation.total_questions} questions.\n\nHere's your comprehensive feedback:\n\n#{@conversation.summary}"
+    Message.create!(role: "assistant", content: summary_message, conversation: @conversation)
+  else
+    next_question = @conversation.current_question
+
+    prompt = <<~PROMPT
+      The candidate just answered: "#{@message.content}"
+
+      Briefly acknowledge their answer (1-2 sentences).
+
+      Then ask this next question in a natural way:
+      #{next_question}
+    PROMPT
+
+    response = RubyLLM.chat.with_instructions(SYSTEM_PROMPT).ask(prompt)
+    Message.create!(role: "assistant", content: response.content, conversation: @conversation)
+  end
+
+      #@conversation.messages.create(role: "assistant", content: response.content)
+      # redirect_to conversation_path(@conversation)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to conversation_path(@conversation) }
       end
-
-      # @conversation.messages.create(role: "assistant", content: response.content)
-      redirect_to conversation_path(@conversation)
     else
       # render "chats/show", status: :unprocessable_entity
         respond_to do |format|
@@ -46,15 +59,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.permit(:content)
+    params.require(:message).permit(:content)
   end
-
-  def interview_context
-    "Here is the context of the interview: Position: #{@interview.target_role}. Level: #{@interview.seniority}. Technology: #{@interview.language}.\n\nYou must ask these questions in order:\n#{@interview.questions}\n\nAsk them ONE at a time."
-  end
-
-  def instructions
-    [SYSTEM_PROMPT, interview_context, @interview.system_prompt].compact.join("\n\n")
-  end
-
 end
