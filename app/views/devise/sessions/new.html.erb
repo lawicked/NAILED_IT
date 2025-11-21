@@ -1,20 +1,31 @@
-<h2>Log in</h2>
+<div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+  <div class="card w-full max-w-md bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="text-3xl font-bold text-center mb-6">Log in</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+        <div>
+          <%= f.label :email, class: "label mb-2" %>
+          <%= f.input_field :email, required: false, autofocus: true, input_html: { autocomplete: "email" }, class: "input input-bordered w-full" %>
+        </div>
+
+        <div>
+          <%= f.label :password, class: "label mb-2" %>
+          <%= f.input_field :password, required: false, input_html: { autocomplete: "current-password" }, class: "input input-bordered w-full" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center">
+            <%= f.input_field :remember_me, as: :boolean, class: "checkbox" %>
+            <%= f.label :remember_me, class: "label ml-2" %>
+          </div>
+        <% end %>
+
+        <%= f.button :submit, "Log in", class: "btn btn-primary w-full mt-4" %>
+      <% end %>
+
+      <div class="divider">OR</div>
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
