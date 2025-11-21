@@ -16,8 +16,8 @@
         <%= is_user ? "You" : "AI" %> · <%= message.created_at.strftime("%H:%M") %>
       </div>
 
-      <div class="px-4 py-2 bg-base-200 text-sm rounded-xl">
-        <%= simple_format(message.content) %>
+      <div class="px-4 py-3 bg-base-200 text-sm rounded-xl prose prose-sm max-w-none">
+        <%= markdown(message.content) %>
       </div>
     </div>
 
