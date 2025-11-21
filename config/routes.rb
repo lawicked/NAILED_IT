@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, sign_out_via: [:get, :delete]
   root to: "pages#home"
+  get "about", to: "pages#about"
 
   resources :interviews, only: [:index, :show] do
     resources :conversations, only: [:create]

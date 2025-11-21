@@ -3,6 +3,10 @@ class MessagesController < ApplicationController
 
   def create
     @conversation = current_user.conversations.find(params[:conversation_id])
+    @interview = @conversation.interview
+    params.delete(:authenticity_token)
+    params.delete(:commit)
+    params.delete(:conversation_id)
     @message = Message.new(message_params)
     @message.conversation = @conversation
     @message.role = "user"

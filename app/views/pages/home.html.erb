@@ -1,83 +1,241 @@
 <div class="hero bg-base-200 min-h-screen">
-  <div class="hero-content flex-col lg:flex-row-reverse">
-    <%= image_tag "interview.jpeg", class: "max-w-sm rounded-lg shadow-2xl" %>
-    <div class="max-w-2xl mx-auto px-5">
-      <h1 class="text-5xl font-bold">Your Personal AI Tech Interview Coach</h1>
-      <p class="py-6">
+  <div class="hero-content flex-col lg:flex-row-reverse gap-12">
+    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop&q=80" alt="Professional tech interview" class="max-w-lg rounded-lg shadow-2xl" />
+    <div class="max-w-2xl mx-auto px-8">
+      <h1 class="text-6xl font-bold leading-tight">Your Personal AI Tech Interview Coach</h1>
+      <p class="py-8 text-lg leading-relaxed">
         Nailed It! helps students and early-career developers build the confidence and skills they need to ace technical interviews. Our AI Interviewer simulates real-world interview scenarios, gives instant feedback, and helps you improve with every session.
       </p>
-      <button class="btn btn-primary">Get Started</button>
+      <%= link_to "Get Started", interviews_path, class: "btn btn-primary btn-lg" %>
     </div>
   </div>
 </div>
 
-<section class="features>
-  <h2 class="text-5xl mt-8 text-center"> Our Features </h2>
-  <div 	class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-10">
-    <%= render "featurecard" %>
-    <%= render "featurecard" %>
-    <%= render "featurecard" %>
-    <%= render "featurecard" %>
-    <%= render "featurecard" %>
-    <%= render "featurecard" %>
+<section class="features py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl mb-12 text-center font-bold">Our Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+      <%= content_tag :div, class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300" do %>
+        <div class="card-body items-center text-center">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h2 class="card-title text-2xl mb-3">AI-Powered Interviews</h2>
+          <p class="text-base-content/70">Practice with our intelligent AI that adapts to your skill level and provides realistic interview scenarios</p>
+        </div>
+      <% end %>
+
+      <%= content_tag :div, class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300" do %>
+        <div class="card-body items-center text-center">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="card-title text-2xl mb-3">Instant Feedback</h2>
+          <p class="text-base-content/70">Get real-time feedback on your answers, communication style, and technical accuracy</p>
+        </div>
+      <% end %>
+
+      <%= content_tag :div, class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300" do %>
+        <div class="card-body items-center text-center">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h2 class="card-title text-2xl mb-3">Progress Tracking</h2>
+          <p class="text-base-content/70">Monitor your improvement over time with detailed analytics and performance metrics</p>
+        </div>
+      <% end %>
+
+      <%= content_tag :div, class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300" do %>
+        <div class="card-body items-center text-center">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h2 class="card-title text-2xl mb-3">Extensive Question Bank</h2>
+          <p class="text-base-content/70">Access hundreds of technical questions covering algorithms, data structures, system design, and more</p>
+        </div>
+      <% end %>
+
+      <%= content_tag :div, class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300" do %>
+        <div class="card-body items-center text-center">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="card-title text-2xl mb-3">Flexible Practice Sessions</h2>
+          <p class="text-base-content/70">Practice at your own pace, anytime, anywhere with sessions tailored to your schedule</p>
+        </div>
+      <% end %>
+
+      <%= content_tag :div, class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300" do %>
+        <div class="card-body items-center text-center">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h2 class="card-title text-2xl mb-3">Community Support</h2>
+          <p class="text-base-content/70">Join a community of developers preparing for interviews and share experiences</p>
+        </div>
+      <% end %>
+
+    </div>
   </div>
 </section>
 
-<section class="price bg-base-200">
-  <h2 class="text-5xl text-center pt-8"> Our Pricing </h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-10 pb-8">
-    <%= render "pricecard" %>
-    <%= render "pricecard" %>
-    <%= render "pricecard" %>
+<section class="price py-20 bg-base-200">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl text-center mb-12 font-bold">Our Pricing</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <%= render "pricecard" %>
+      <%= render "pricecard" %>
+      <%= render "pricecard" %>
+    </div>
   </div>
 </section>
 
-<section class="testimonials">
-  <h2 class="text-5xl text-center pt-8"> Testimonials </h2>
+<section class="testimonials py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl text-center mb-12 font-bold">Testimonials</h2>
 
-  <div class="card bg-base-100 w-96 shadow-sm">
-    <figure>
-      <img
-        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-        alt="Shoes" />
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Card Title</h2>
-      <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+      <div class="card bg-base-100 shadow-xl">
+        <figure class="px-10 pt-10">
+          <div class="avatar">
+            <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="User 1" />
+            </div>
+          </div>
+        </figure>
+        <div class="card-body items-center text-center">
+          <div class="rating rating-sm mb-2">
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" disabled checked />
+          </div>
+          <p class="text-base-content/80 mb-4">"Nailed It! helped me land my dream job at a FAANG company. The AI interviewer was incredibly realistic and the feedback was invaluable."</p>
+          <h3 class="font-bold text-lg">Sarah Chen</h3>
+          <p class="text-sm text-base-content/60">Software Engineer at Google</p>
+        </div>
       </div>
+
+      <div class="card bg-base-100 shadow-xl">
+        <figure class="px-10 pt-10">
+          <div class="avatar">
+            <div class="w-24 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+              <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp" alt="User 2" />
+            </div>
+          </div>
+        </figure>
+        <div class="card-body items-center text-center">
+          <div class="rating rating-sm mb-2">
+            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" disabled checked />
+          </div>
+          <p class="text-base-content/80 mb-4">"As a bootcamp graduate, I was nervous about technical interviews. This platform gave me the confidence and skills I needed to succeed."</p>
+          <h3 class="font-bold text-lg">Michael Rodriguez</h3>
+          <p class="text-sm text-base-content/60">Junior Developer at Startup</p>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow-xl">
+        <figure class="px-10 pt-10">
+          <div class="avatar">
+            <div class="w-24 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
+              <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="User 3" />
+            </div>
+          </div>
+        </figure>
+        <div class="card-body items-center text-center">
+          <div class="rating rating-sm mb-2">
+            <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" disabled checked />
+            <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" disabled checked />
+          </div>
+          <p class="text-base-content/80 mb-4">"The progress tracking feature is amazing! I could see myself improving with each session. Highly recommend for anyone preparing for tech interviews."</p>
+          <h3 class="font-bold text-lg">Emily Johnson</h3>
+          <p class="text-sm text-base-content/60">Full Stack Developer at Amazon</p>
+        </div>
+      </div>
+
     </div>
   </div>
-
-    <div class="card bg-base-100 w-96 shadow-sm">
-    <figure>
-      <img
-        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-        alt="Shoes" />
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Card Title</h2>
-      <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-
-    <div class="card bg-base-100 w-96 shadow-sm">
-    <figure>
-      <img
-        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-        alt="Shoes" />
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Card Title</h2>
-      <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-
 </section>
+
+<footer class="bg-neutral text-neutral-content py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+
+        <!-- Company Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-4">NAILED IT!</h3>
+          <p class="text-sm opacity-80">Your Personal AI Tech Interview Coach</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm opacity-80">
+            <li><a href="#" class="hover:opacity-100 transition-opacity">About</a></li>
+            <li><a href="#" class="hover:opacity-100 transition-opacity">Privacy Policy</a></li>
+            <li><a href="#" class="hover:opacity-100 transition-opacity">Terms of Service</a></li>
+            <li><a href="#" class="hover:opacity-100 transition-opacity">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+          <h3 class="font-bold text-lg mb-4">Follow Us</h3>
+          <div class="flex gap-4">
+            <!-- X/Twitter -->
+            <a href="#" class="hover:opacity-80 transition-opacity" aria-label="X (Twitter)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" class="hover:opacity-80 transition-opacity" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <!-- YouTube -->
+            <a href="#" class="hover:opacity-80 transition-opacity" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-neutral-content/20 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-sm opacity-80">&copy; 2025 NAILED-IT OFFSHORE LLC. All rights reserved.</p>
+          <p class="text-sm opacity-80">Made with ❤️ for developers</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>

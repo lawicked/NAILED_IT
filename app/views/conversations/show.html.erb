@@ -56,40 +56,41 @@
 
       <!-- SIDEBAR CLEAN -->
       <div class="hidden lg:block lg:col-span-1">
-        <div class="bg-white border border-base-300 rounded-xl px-4 py-5 text-left">
+        <div class="bg-white border border-base-300 rounded-xl text-left">
+          <div class="px-4 py-5">
+            <h3 class="font-bold text-sm mb-4 pl-6">Interview Tips</h3>
 
-          <h3 class="font-medium text-sm mb-4">Interview Tips</h3>
+            <ul class="space-y-2 text-sm">
+              <li class="relative pl-6">
+                <span class="absolute left-0 top-0 text-success">✓</span>
+                <span>Take your time before answering</span>
+              </li>
 
-          <ul class="space-y-2 text-sm">
-            <li class="relative">
-              <span class="absolute -left-4 top-0 text-success">✓</span>
-              <span>Take your time before answering</span>
-            </li>
+              <li class="relative pl-6">
+                <span class="absolute left-0 top-0 text-success">✓</span>
+                <span>Ask clarifying questions</span>
+              </li>
 
-            <li class="relative">
-              <span class="absolute -left-4 top-0 text-success">✓</span>
-              <span>Ask clarifying questions</span>
-            </li>
+              <li class="relative pl-6">
+                <span class="absolute left-0 top-0 text-success">✓</span>
+                <span>Explain your thought process</span>
+              </li>
 
-            <li class="relative">
-              <span class="absolute -left-4 top-0 text-success">✓</span>
-              <span>Explain your thought process</span>
-            </li>
+              <li class="relative pl-6">
+                <span class="absolute left-0 top-0 text-success">✓</span>
+                <span>Use concrete examples</span>
+              </li>
+            </ul>
 
-            <li class="relative">
-              <span class="absolute -left-4 top-0 text-success">✓</span>
-              <span>Use concrete examples</span>
-            </li>
-          </ul>
+            <div class="border-t border-base-300 my-4"></div>
 
-          <div class="border-t border-base-300 my-4"></div>
-
-          <div class="text-xs">
-            <div class="font-medium text-base-content/80">Progress</div>
-            <div class="text-2xl font-semibold text-primary mt-1">
-              <%= @conversation.messages.count %>
+            <div class="text-xs">
+              <div class="font-medium text-base-content/80">Progress</div>
+              <div class="text-2xl font-semibold text-primary mt-1">
+                <%= @conversation.messages.count %>
+              </div>
+              <div class="text-base-content/60">Total exchanges</div>
             </div>
-            <div class="text-base-content/60">Total exchanges</div>
           </div>
         </div>
       </div>
@@ -112,7 +113,7 @@
         </div>
 
         <!-- INPUT CARD -->
-        <div id="new_message_container" class="bg-white border border-base-300 rounded-xl p-5 sticky bottom-4">
+        <div id="new_message_container" class="bg-white border border-base-300 rounded-xl p-5 bottom-4">
           <%= render "conversations/form", conversation: @conversation, message: @message %>
         </div>
 
