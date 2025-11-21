@@ -1,19 +1,19 @@
 <div class="hero bg-base-200 min-h-screen">
   <div class="hero-content flex-col lg:flex-row-reverse">
     <%= image_tag "interview.jpeg", class: "max-w-sm rounded-lg shadow-2xl" %>
-    <div class="max-w-2xl mx-auto px-5">
-      <h1 class="text-5xl font-bold">Your Personal AI Tech Interview Coach</h1>
-      <p class="py-6">
+    <div class="max-w-2xl mx-auto px-8">
+      <h1 class="text-6xl font-bold leading-tight">Your Personal AI Tech Interview Coach</h1>
+      <p class="py-8 text-lg leading-relaxed">
         Nailed It! helps students and early-career developers build the confidence and skills they need to ace technical interviews. Our AI Interviewer simulates real-world interview scenarios, gives instant feedback, and helps you improve with every session.
       </p>
-      <%= link_to "Get Started", interviews_path, class: "btn btn-primary" %>
+      <%= link_to "Get Started", interviews_path, class: "btn btn-primary btn-lg" %>
     </div>
   </div>
 </div>
 
 <section class="features>
-  <h2 class="text-5xl mt-8 text-center"> Our Features </h2>
-  <div 	class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-10">
+  <h2 class="text-4xl mt-13 mb-8 text-center font-bold"> Our Features </h2>
+  <div 	class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-13 mb-13">
     <%= render "featurecard" %>
     <%= render "featurecard" %>
     <%= render "featurecard" %>
@@ -24,8 +24,8 @@
 </section>
 
 <section class="price bg-base-200">
-  <h2 class="text-5xl text-center pt-8"> Our Pricing </h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-10 pb-8">
+  <h2 class="text-4xl text-center pt-13 mb-8 font-bold"> Our Pricing </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-13 pb-13">
     <%= render "pricecard" %>
     <%= render "pricecard" %>
     <%= render "pricecard" %>
@@ -33,7 +33,7 @@
 </section>
 
 <section class="testimonials">
-  <h2 class="text-5xl text-center pt-8"> Testimonials </h2>
+  <h2 class="text-4xl text-center pt-13 mb-8 font-bold"> Testimonials </h2>
 
   <div class="card bg-base-100 w-96 shadow-sm">
     <figure>
@@ -45,7 +45,7 @@
       <h2 class="card-title">Card Title</h2>
       <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+        <button class="btn btn-primary btn-md">Buy Now</button>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
       <h2 class="card-title">Card Title</h2>
       <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+        <button class="btn btn-primary btn-md">Buy Now</button>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
       <h2 class="card-title">Card Title</h2>
       <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+        <button class="btn btn-primary btn-md">Buy Now</button>
       </div>
     </div>
   </div>

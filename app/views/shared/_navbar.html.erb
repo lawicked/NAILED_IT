@@ -12,10 +12,10 @@
         <li><%= link_to "About", "#" %></li>
       </ul>
     </div>
-    <%= link_to "Nailed It!", root_path, class: "btn btn-ghost text-xl" %>
+    <%= link_to "Nailed It!", root_path, class: "btn btn-ghost text-2xl font-bold" %>
   </div>
   <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
+    <ul class="menu menu-horizontal px-1 text-base">
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "Interviews", interviews_path %></li>
       <li><%= link_to "About", "#" %></li>
@@ -23,9 +23,9 @@
   </div>
   <div class="navbar-end">
     <% if user_signed_in? %>
-      <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn" %>
+      <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-md" %>
     <% else %>
-      <%= link_to "Login", new_user_session_path, class: "btn" %>
+      <%= link_to "Login", new_user_session_path, class: "btn btn-md" %>
     <% end %>
   </div>
 </div>
