@@ -1,9 +1,9 @@
-<div class="card w-96 bg-base-100 card-md shadow-sm">
-  <div class="card-body">
-    <h2 class="card-title">Medium Card</h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-    <div class="justify-end card-actions">
-      <button class="btn btn-primary">Buy Now</button>
+<div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+  <div class="card-body items-center text-center">
+    <div class="mb-4">
+      <%= yield :icon %>
     </div>
+    <h2 class="card-title text-2xl mb-3"><%= yield :title %></h2>
+    <p class="text-base-content/70"><%= yield :description %></p>
   </div>
 </div>

@@ -129,9 +129,9 @@
 <!-- Cards -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
   <% @interviews.each do |interview| %>
-    <div class="card bg-base-100 shadow-xl">
+    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       <figure class="px-10 pt-10">
-        <%= image_tag "Ruby_On_Rails_Logo.svg", alt: "Rails", class: "rounded-xl w-20 h-20" %>
+        <%= tech_icon(interview.language) %>
       </figure>
       <div class="card-body items-center text-center">
         <h2 class="card-title"><%= interview.target_role %></h2>
